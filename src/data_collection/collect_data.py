@@ -33,10 +33,11 @@ def main():
                     mp_draw.draw_landmarks(
                         frame, hand_landmarks, mp_hands.HAND_CONNECTIONS
                     )
-                    if key == ord("a"):
+                    if ord("a") <= key <= ord("z"):
+                        label = chr(key).upper()
                         with open("data/landmarks.csv","a",newline="") as f:
                             writer = csv.writer(f)
-                            writer.writerow(["A"]+row)
+                            writer.writerow([label]+row)
                     row=[]
                     for lm in hand_landmarks.landmark:
                         row.append(lm.x)
@@ -47,7 +48,7 @@ def main():
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0),2)
             cv2.imshow("Hand Tracking", frame)
             
-            if key == ord("q"):
+            if key == 27:
                 break
             
     cap.release()
